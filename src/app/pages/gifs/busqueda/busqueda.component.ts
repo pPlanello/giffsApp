@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+
 import { GifsService } from 'src/app/shared/services/gifs.service';
 
 @Component({
@@ -7,6 +8,8 @@ import { GifsService } from 'src/app/shared/services/gifs.service';
   styleUrls: ['./busqueda.component.css']
 })
 export class BusquedaComponent implements OnInit {
+
+  @Output() value2find: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('txtFind') txtFind!: ElementRef<HTMLInputElement>;
 
@@ -17,8 +20,12 @@ export class BusquedaComponent implements OnInit {
 
   findGif() {
     const valueFind = this.txtFind.nativeElement.value;
-    this.gifsService.findGifs(valueFind).subscribe(data => console.log('buscando...', data));
-    // borrar input
+    // Guardar el historial
+    this.gifsService.saveHistory(valueFind);
+    // Emitir al padre
+    this.value2find.emit(valueFind);
     this.txtFind.nativeElement.value = '';
+    // Llamada al api y guardado en el servicio
+    this.gifsService.findGifs(valueFind).subscribe((data: any) => this.gifsService.saveGifs(data['data']));
   }
 }

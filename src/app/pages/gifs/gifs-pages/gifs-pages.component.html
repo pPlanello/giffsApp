@@ -1,11 +1,15 @@
 <div class="row p-3">
     <div class="col">
-        <app-busqueda></app-busqueda>
+        <app-busqueda 
+            (value2find)="obtainValue2Find($event)">
+        </app-busqueda>
     </div>
 </div>
 
 <hr>
 
 <div class="row">
-    <app-results class="col"></app-results>
+    <app-results 
+        class="col">
+    </app-results>
 </div>

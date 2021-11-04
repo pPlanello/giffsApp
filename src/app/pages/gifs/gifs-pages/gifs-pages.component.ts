@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GifsService } from 'src/app/shared/services/gifs.service';
 
 @Component({
   selector: 'app-gifs-pages',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GifsPagesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private gifsService: GifsService) { }
 
   ngOnInit(): void {
+  }
+
+  obtainValue2Find(event: string) {
+    this.gifsService.gifSearch.emit(event);
   }
 
 }
