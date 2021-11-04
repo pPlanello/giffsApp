@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "giffsApp"
+  "defaultProject": "giffsApp",
+  "cli": {
+    "analytics": false
+  }
 }
